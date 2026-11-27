@@ -2,6 +2,12 @@ import React from 'react'
 import { stepsData } from '../assets/assets'
 import { motion } from 'motion/react'
 
+const stepIcons = [
+    <path key="describe" d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z" />,
+    <path key="magic" d="M12 3v4M12 17v4M5 10h4M15 10h4M7 7l2 2M15 15l2 2M17 7l-2 2M9 15l-2 2" />,
+    <path key="download" d="M12 3v12M7 11l5 5 5-5M5 21h14" />,
+]
+
 const Steps = () => {
     return (
         <motion.div
@@ -11,8 +17,8 @@ const Steps = () => {
             viewport={{ once: true }}
             className='flex flex-col items-center justify-center my-32 px-4'
         >
-            <h1 className='text-3xl sm:text-4xl font-semibold mb-2 text-gray-900 dark:text-zinc-100'>How it works</h1>
-            <p className='text-lg text-gray-500 dark:text-zinc-400 mb-8'>Transform Words Into Stunning Images</p>
+            <h1 className='text-3xl sm:text-4xl font-semibold mb-2 text-night dark:text-cream'>How it works</h1>
+            <p className='text-lg text-night/50 dark:text-cream/50 mb-8'>Three steps. Zero friction.</p>
 
             <div className='space-y-4 w-full max-w-3xl text-sm'>
                 {stepsData.map((item, index) => (
@@ -22,14 +28,16 @@ const Steps = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ type: 'spring', stiffness: 200, delay: index * 0.15 }}
-                        className='flex items-center gap-4 p-5 px-8 bg-white dark:bg-zinc-800/80 shadow-md dark:shadow-zinc-900/50 border border-gray-200 dark:border-zinc-700 cursor-pointer hover:scale-[1.02] hover:shadow-lg dark:hover:shadow-zinc-900/80 transition-all duration-300 rounded-xl'
+                        className='flex items-center gap-4 p-5 px-8 bg-white dark:bg-cream/[0.04] border border-night/10 dark:border-cream/10 cursor-pointer hover:scale-[1.02] transition-all duration-300 rounded-xl'
                     >
-                        <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-orange-500/20 flex items-center justify-center shrink-0">
-                            <img width={28} src={item.icon} alt='' className="dark:invert" />
+                        <div className="w-12 h-12 rounded-xl bg-gold/20 flex items-center justify-center shrink-0">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-gold-dark dark:text-gold" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                {stepIcons[index]}
+                            </svg>
                         </div>
                         <div>
-                            <h2 className='text-xl font-medium text-gray-900 dark:text-zinc-100'>{item.title}</h2>
-                            <p className='text-gray-500 dark:text-zinc-400 mt-1 leading-relaxed'>{item.description}</p>
+                            <h2 className='text-xl font-medium text-night dark:text-cream'>{item.title}</h2>
+                            <p className='text-night/50 dark:text-cream/50 mt-1 leading-relaxed'>{item.description}</p>
                         </div>
                     </motion.div>
                 ))}

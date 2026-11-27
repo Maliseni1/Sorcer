@@ -107,7 +107,7 @@ const Login = () => {
 
                     <motion.img
                         src={assets.logo_icon}
-                        alt="PhotoGen"
+                        alt="Sorcer"
                         className="mx-auto h-10 w-10 mb-3 brightness-0 invert drop-shadow-lg"
                         initial={{ scale: 0, rotate: -180 }}
                         animate={{ scale: 1, rotate: 0 }}
@@ -119,7 +119,7 @@ const Login = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
                     >
-                        {state === 'Login' ? 'Welcome Back!' : 'Join PhotoGen'}
+                        {state === 'Login' ? 'Welcome Back!' : 'Join Sorcer'}
                     </motion.h2>
                     <motion.p
                         className="text-sm text-white/80 mt-1"

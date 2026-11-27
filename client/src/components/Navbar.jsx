@@ -2,6 +2,7 @@ import React, {useContext } from 'react'
 import { assets } from '../assets/assets'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext.jsx'
+import Logo from './Logo'
 
 const Navbar = () => {
     
@@ -15,7 +16,7 @@ const Navbar = () => {
     //    and text colors respect dark mode
     <div className='flex items-center justify-between py-4 bg-transparent text-gray-800 dark:text-zinc-100'>
         <Link to='/'>
-            <img src={assets.logo} alt="" className='w-28 sm:w-32 lg:w-40' />
+            <Logo />
         </Link>
 
         <div>

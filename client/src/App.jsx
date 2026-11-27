@@ -9,8 +9,11 @@ import Result from './pages/Result'
 import BuyCredit from './pages/BuyCredit'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import OfflinePage from './components/OfflinePage'
+import BackendStatusBanner from './components/BackendStatusBanner'
 import Login from './components/Login'
 import { AppContext } from './context/AppContext'
+import useNetworkStatus from './hooks/useNetworkStatus'
 
 // ─── Auth Guard ───
 const ProtectedRoute = ({ children }) => {
@@ -32,6 +35,13 @@ const ProtectedRoute = ({ children }) => {
 
 const App = () => {
     const { showLogin, isDarkMode } = useContext(AppContext)
+    const { isOnline, checkConnection } = useNetworkStatus()
+
+    // Only block the whole app when the browser itself has no network connection.
+    // Backend outages are surfaced separately via BackendStatusBanner, non-blocking.
+    if (!isOnline) {
+        return <OfflinePage onRetry={checkConnection} />
+    }
 
     return (
         <div
@@ -39,6 +49,7 @@ const App = () => {
             style={{ background: 'var(--bg-primary)' }}
         >
             <ToastContainer position='bottom-right' />
+            <BackendStatusBanner />
             <Navbar />
 
             <AnimatePresence>

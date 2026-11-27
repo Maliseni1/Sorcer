@@ -1,6 +1,6 @@
-# PhotoGen - AI-powered Image Generation
+# Sorcer - AI-powered Image Generation
 
-PhotoGen is a full-stack image generation app built with React + Vite on the front end and Express + Node + MongoDB on the back end. It offers user authentication, a credit system, AI image creation via the ClipDrop text-to-image API, and a purchase flow using Coinbase OnChainKit.
+Sorcer is a full-stack image generation app built with React + Vite on the front end and Express + Node + MongoDB on the back end. It offers user authentication, a credit system, AI image creation via the ClipDrop text-to-image API, and a purchase flow using Coinbase OnChainKit.
 
 ## Key Features
 

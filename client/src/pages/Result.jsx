@@ -33,7 +33,7 @@ const Result = () => {
     const number = String(downloadCount.current).padStart(3, '0')
     const link = document.createElement('a')
     link.href = image
-    link.download = `photogen_${number}.png`
+    link.download = `sorcer_${number}.png`
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)

@@ -1,12 +1,8 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 import { motion } from 'motion/react'
-import { useNavigate } from 'react-router-dom'
-import { AppContext } from '../context/AppContext' 
 
 const Footer = () => {
-    const navigate = useNavigate()
-    const { user } = React.useContext(AppContext)  
     const socialLinks = [
         {
             href: "https://www.facebook.com/Mariseny.moves/",
@@ -52,101 +48,35 @@ const Footer = () => {
         },
     ]
 
-    const footerLinks = [
-        { title: "Product", links: ["Features", "Pricing", "API", "Changelog"] },
-        { title: "Company", links: ["About", "Blog", "Careers", "Contact"] },
-        { title: "Legal", links: ["Privacy", "Terms", "Security"] },
-    ]
-
     return (
         <div className="mt-20">
-            {/* Pre-Footer CTA Banner — HIDDEN WHEN LOGGED IN */}
-            {!user && (
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ type: 'spring', stiffness: 100 }}
-                    className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-orange-500 dark:to-red-600 p-8 sm:p-12 mb-16 text-center"
-                >
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3" />
-                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/3" />
-                    
-                    <div className="relative z-10">
-                        <motion.img
-                            src={assets.logo_icon}
-                            alt=""
-                            className="mx-auto h-14 w-14 mb-4 brightness-0 invert drop-shadow-lg"
-                            animate={{ rotate: [0, 10, -10, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                        />
-                        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">Ready to create?</h2>
-                        <p className="text-blue-100 dark:text-orange-100 max-w-lg mx-auto mb-8">
-                            Join thousands of creators turning their imagination into stunning visuals. Start for free today.
-                        </p>
-                        <motion.button
-                            onClick={() => navigate('/')}
-                            className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 text-blue-600 dark:text-orange-500 px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-shadow"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            Start Creating Free
-                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
-                        </motion.button>
-                    </div>
-                </motion.div>
-            )}
-
             {/* Main Footer */}
             <div className="border-t border-gray-200 dark:border-zinc-800 pt-12 pb-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
-                    {/* Brand Column */}
-                    <div className="lg:col-span-2">
-                        <div className="relative inline-block mb-4">
-                            <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 dark:from-orange-500/20 dark:to-red-500/20 rounded-xl blur-lg" />
-                            <img src={assets.logo} alt="Sorcer" className="relative h-14 w-auto" />
-                        </div>
-                        <p className="text-gray-500 dark:text-zinc-400 text-sm leading-relaxed max-w-xs mb-6">
-                            Transform your ideas into stunning AI-generated images in seconds. The creative playground for modern visionaries.
-                        </p>
-                        
-                        <div className="flex gap-3">
-                            {socialLinks.map((social, i) => (
-                                <motion.a
-                                    key={i}
-                                    href={social.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={`w-11 h-11 rounded-xl bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-zinc-400 flex items-center justify-center border border-gray-200 dark:border-zinc-700 transition-all duration-300 ${social.color}`}
-                                    whileHover={{ y: -4, scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    aria-label={social.label}
-                                >
-                                    {social.svg}
-                                </motion.a>
-                            ))}
-                        </div>
+                <div className="flex flex-col items-center text-center mb-12">
+                    <div className="relative inline-block mb-4">
+                        <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 dark:from-orange-500/20 dark:to-red-500/20 rounded-xl blur-lg" />
+                        <img src={assets.logo} alt="Sorcer" className="relative h-14 w-auto" />
                     </div>
+                    <p className="text-gray-500 dark:text-zinc-400 text-sm leading-relaxed max-w-xs mb-6">
+                        Transform your ideas into stunning AI-generated images in seconds. The creative playground for modern visionaries.
+                    </p>
 
-                    {/* Link Columns */}
-                    {footerLinks.map((col, i) => (
-                        <div key={i}>
-                            <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 uppercase tracking-wider">
-                                {col.title}
-                            </h3>
-                            <ul className="space-y-3">
-                                {col.links.map((link, j) => (
-                                    <li key={j}>
-                                        <span className="text-sm text-gray-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-orange-400 cursor-pointer transition-colors">
-                                            {link}
-                                        </span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                    <div className="flex gap-3">
+                        {socialLinks.map((social, i) => (
+                            <motion.a
+                                key={i}
+                                href={social.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`w-11 h-11 rounded-xl bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-zinc-400 flex items-center justify-center border border-gray-200 dark:border-zinc-700 transition-all duration-300 ${social.color}`}
+                                whileHover={{ y: -4, scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                aria-label={social.label}
+                            >
+                                {social.svg}
+                            </motion.a>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Bottom Bar */}

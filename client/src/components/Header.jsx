@@ -162,28 +162,6 @@ const Header = () => {
                     </motion.button>
                 </motion.div>
 
-                {/* Stats row */}
-                <motion.div
-                    variants={itemVariants}
-                    className="flex items-center gap-8 mt-10 text-sm text-gray-500 dark:text-zinc-500"
-                >
-                    <div className="flex items-center gap-1.5">
-                        <div className="flex -space-x-2">
-                            {[1,2,3].map(i => (
-                                <div key={i} className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 dark:from-orange-400 dark:to-red-500 border-2 border-white dark:border-zinc-900" />
-                            ))}
-                        </div>
-                        <span>2,000+ creators</span>
-                    </div>
-                    <div className="h-4 w-px bg-gray-300 dark:bg-zinc-700" />
-                    <div className="flex items-center gap-1">
-                        <img src={assets.star_icon} className="w-4 h-4 dark:invert" alt="" />
-                        <span>4.9/5 rating</span>
-                    </div>
-                    <div className="h-4 w-px bg-gray-300 dark:bg-zinc-700" />
-                    <span>Free to start</span>
-                </motion.div>
-
                 {/* Image Showcase Grid */}
                 <motion.div
                     variants={itemVariants}

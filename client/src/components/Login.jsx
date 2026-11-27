@@ -251,6 +251,15 @@ const Login = () => {
                             </motion.div>
                         )}
 
+                        {state !== 'Login' && (
+                            <motion.p variants={itemVariants} className={`text-xs mt-3 ${theme.text.subtle}`}>
+                                By creating an account, you agree to our{' '}
+                                <a href="/terms" target="_blank" rel="noopener noreferrer" className="underline">Terms &amp; Conditions</a>
+                                {' '}and{' '}
+                                <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline">Privacy Policy</a>.
+                            </motion.p>
+                        )}
+
                         <motion.div variants={itemVariants} className="mt-5">
                             <Button
                                 as={motion.button}

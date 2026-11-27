@@ -7,6 +7,8 @@ import { Analytics } from '@vercel/analytics/react'
 import Home from './pages/Home'
 import Result from './pages/Result'
 import BuyCredit from './pages/BuyCredit'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import Terms from './pages/Terms'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import OfflinePage from './components/OfflinePage'
@@ -81,6 +83,9 @@ const App = () => {
                         <BuyCredit />
                     </ProtectedRoute>
                 } />
+
+                <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+                <Route path='/terms' element={<Terms />} />
             </Routes>
 
             <Footer />

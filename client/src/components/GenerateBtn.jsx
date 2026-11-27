@@ -3,6 +3,8 @@ import { assets } from '../assets/assets'
 import { motion } from 'motion/react'
 import { AppContext } from '../context/AppContext'
 import { useNavigate } from 'react-router-dom'
+import { Button } from './ui'
+import { theme } from '../styles/theme'
 
 const GenerateBtn = () => {
     const { user, setShowLogin } = useContext(AppContext)
@@ -26,21 +28,22 @@ const GenerateBtn = () => {
         >
             <div className="relative inline-block">
                 <div className="absolute -inset-4 bg-gold/10 rounded-full blur-2xl" />
-                <h1 className='relative text-2xl md:text-3xl lg:text-4xl mt-4 font-semibold text-night dark:text-cream py-6 md:py-16'>
+                <h1 className={`relative text-2xl md:text-3xl lg:text-4xl mt-4 font-semibold ${theme.text.heading} py-6 md:py-16`}>
                     See the magic. Try now!
                 </h1>
             </div>
 
-            <motion.button
+            <Button
+                as={motion.button}
                 onClick={onClickHandler}
-                className='relative group inline-flex items-center gap-2 px-12 py-3.5 rounded-full bg-night dark:bg-gold text-cream dark:text-night font-semibold overflow-hidden'
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className='relative group px-12 py-3.5 overflow-hidden'
             >
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 Generate Images
                 <img src={assets.star_group} alt='' className='h-6' />
-            </motion.button>
+            </Button>
         </motion.div>
     )
 }

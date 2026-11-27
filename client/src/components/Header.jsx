@@ -3,6 +3,7 @@ import { assets } from '../assets/assets'
 import { motion } from "motion/react"
 import { AppContext } from '../context/AppContext'
 import { useNavigate } from 'react-router-dom'
+import { theme } from '../styles/theme'
 
 const Header = () => {
     const { user, setShowLogin } = useContext(AppContext)
@@ -46,32 +47,32 @@ const Header = () => {
                 <motion.div variants={itemVariants} className="flex-1 max-w-xl text-center lg:text-left">
                     <div className="flex items-center justify-center lg:justify-start gap-2.5 mb-5">
                         <span className="w-7 h-0.5 bg-gold inline-block" />
-                        <span className="text-xs font-semibold tracking-[0.18em] uppercase text-gold-dark dark:text-gold">
+                        <span className={`text-xs font-semibold tracking-[0.18em] uppercase ${theme.accent.text}`}>
                             AI Image Generation
                         </span>
                     </div>
 
-                    <h1 className="text-5xl sm:text-6xl font-bold leading-[1.08] tracking-tight text-night dark:text-cream mb-6">
+                    <h1 className={`text-5xl sm:text-6xl font-bold leading-[1.08] tracking-tight ${theme.text.heading} mb-6`}>
                         Describe it.<br />
-                        Sorcer <span className="text-gold-dark dark:text-gold bg-gold/20 dark:bg-transparent rounded-lg px-2">paints it.</span>
+                        Sorcer <span className={`${theme.accent.text} bg-gold/20 dark:bg-transparent rounded-lg px-2`}>paints it.</span>
                     </h1>
 
-                    <p className="text-lg text-night/55 dark:text-cream/55 max-w-md mx-auto lg:mx-0 mb-9 leading-relaxed">
+                    <p className={`text-lg ${theme.text.muted} max-w-md mx-auto lg:mx-0 mb-9 leading-relaxed`}>
                         No brushes, no design skills. Just words — and a finished image in seconds.
                     </p>
 
                     <form
                         onSubmit={(e) => { e.preventDefault(); onClickHandler() }}
-                        className="flex items-center gap-1 bg-black/[0.03] dark:bg-white/[0.06] border border-night/10 dark:border-cream/10 rounded-2xl pl-5 pr-1.5 py-1.5 shadow-sm"
+                        className={`flex items-center gap-1 bg-black/[0.03] dark:bg-white/[0.06] border ${theme.border.subtle} rounded-2xl pl-5 pr-1.5 py-1.5 shadow-sm`}
                     >
-                        <svg className="w-[18px] h-[18px] text-night/35 dark:text-cream/35 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg className={`w-[18px] h-[18px] ${theme.text.subtle} shrink-0`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M12 3v4M12 17v4M5 10h4M15 10h4M7 7l2 2M15 15l2 2M17 7l-2 2M9 15l-2 2" />
                         </svg>
                         <input
                             readOnly
                             onClick={onClickHandler}
                             value="a wizard's study at midnight, oil painting"
-                            className="flex-1 bg-transparent text-sm italic text-night/45 dark:text-cream/45 px-3 py-2.5 outline-none cursor-pointer"
+                            className={`flex-1 bg-transparent text-sm italic ${theme.text.muted} px-3 py-2.5 outline-none cursor-pointer`}
                         />
                         <button
                             type="submit"
@@ -83,7 +84,7 @@ const Header = () => {
                             </svg>
                         </button>
                     </form>
-                    <p className="text-xs text-night/30 dark:text-cream/30 mt-3.5">Free to try · no signup needed</p>
+                    <p className={`text-xs ${theme.text.faint} mt-3.5`}>Free to try · no signup needed</p>
                 </motion.div>
 
                 {/* Hero image */}
@@ -92,7 +93,7 @@ const Header = () => {
                         <img
                             src={assets.sample_img_1}
                             alt=""
-                            className="absolute left-0 top-10 w-44 h-56 sm:w-52 sm:h-64 object-cover rounded-2xl border border-night/10 dark:border-cream/10 shadow-xl -rotate-6 opacity-85"
+                            className={`absolute left-0 top-10 w-44 h-56 sm:w-52 sm:h-64 object-cover rounded-2xl border ${theme.border.subtle} shadow-xl -rotate-6 opacity-85`}
                         />
                         <img
                             src={assets.sample_img_2}

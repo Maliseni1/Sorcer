@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'motion/react'
+import { theme } from '../styles/theme'
 
 const SplashScreen = () => {
     return (
@@ -26,7 +27,7 @@ const SplashScreen = () => {
                     </g>
                 </svg>
 
-                <span className="text-2xl font-bold tracking-tight text-night dark:text-cream">Sorcer</span>
+                <span className={`text-2xl font-bold tracking-tight ${theme.text.heading}`}>Sorcer</span>
 
                 <div className="w-44 h-1 rounded-full bg-night/10 dark:bg-cream/10 overflow-hidden mt-1">
                     <motion.div

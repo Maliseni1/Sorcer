@@ -1,5 +1,7 @@
 import React from 'react'
 import { motion, AnimatePresence } from 'motion/react'
+import { Button } from './ui'
+import { theme } from '../styles/theme'
 
 const OfflinePage = ({ onRetry }) => {
     return (
@@ -18,7 +20,7 @@ const OfflinePage = ({ onRetry }) => {
                         transition={{ duration: 2, repeat: Infinity }}
                     >
                         <svg
-                            className="w-12 h-12 text-gold-dark dark:text-gold"
+                            className={`w-12 h-12 ${theme.accent.text}`}
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -50,7 +52,7 @@ const OfflinePage = ({ onRetry }) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-3xl sm:text-4xl font-bold text-night dark:text-cream mb-3 text-center"
+                    className={`text-3xl sm:text-4xl font-bold ${theme.text.heading} mb-3 text-center`}
                 >
                     You're offline
                 </motion.h1>
@@ -59,31 +61,32 @@ const OfflinePage = ({ onRetry }) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="text-night/50 dark:text-cream/50 text-center max-w-md mb-8 text-lg"
+                    className={`${theme.text.muted} text-center max-w-md mb-8 text-lg`}
                 >
                     It looks like your connection is down or too weak. Check your network and try again.
                 </motion.p>
 
-                <motion.button
+                <Button
+                    as={motion.button}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
                     onClick={onRetry}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="relative inline-flex items-center gap-2 px-8 py-3 rounded-full bg-night dark:bg-gold text-cream dark:text-night font-semibold"
+                    className="px-8 py-3"
                 >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                     </svg>
                     Retry Connection
-                </motion.button>
+                </Button>
 
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
-                    className="mt-6 text-sm text-night/35 dark:text-cream/35"
+                    className={`mt-6 text-sm ${theme.text.subtle}`}
                 >
                     Sorcer works best with a stable internet connection
                 </motion.p>

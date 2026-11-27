@@ -3,6 +3,8 @@ import { track } from '@vercel/analytics'
 import { assets } from '../assets/assets'
 import { motion } from 'motion/react'
 import { AppContext } from '../context/AppContext'
+import { Button } from '../components/ui'
+import { theme } from '../styles/theme'
 
 const Result = () => {
   const [image, setImage] = useState(assets.sample_img_1)
@@ -53,7 +55,7 @@ const Result = () => {
           <img src={image} alt='Generated' className='max-w-sm rounded-2xl shadow-lg dark:shadow-zinc-900/50' />
           <span className={`absolute bottom-0 left-0 h-1 bg-gold ${loading ? 'w-full transition-all duration-[10s]' : 'w-0'}`} />
         </div>
-        <p className={`mt-3 text-center text-sm text-night/50 dark:text-cream/50 ${!loading ? 'hidden' : ''}`}>
+        <p className={`mt-3 text-center text-sm ${theme.text.muted} ${!loading ? 'hidden' : ''}`}>
           Loading....
         </p>
       </div>
@@ -67,29 +69,27 @@ const Result = () => {
             placeholder='Describe what you want to generate'
             className='flex-1 bg-transparent outline-none px-4 ml-8 max-sm:w-20 placeholder-gray-300 dark:placeholder-zinc-400'
           />
-          <button
-            type='submit'
-            className='bg-night dark:bg-gold text-cream dark:text-night font-medium px-10 sm:px-16 py-3 rounded-full'
-          >
+          <Button type='submit' className='font-medium px-10 sm:px-16 py-3'>
             Generate
-          </button>
+          </Button>
         </div>
       )}
 
       {isImageLoaded && (
         <div className='flex gap-3 flex-wrap justify-center text-sm p-0.5 mt-10'>
-          <button
+          <Button
+            variant="outline"
             onClick={() => { setIsImageLoaded(false); setInput('') }}
-            className='bg-transparent border-2 border-night/30 dark:border-cream/30 text-night dark:text-cream px-8 py-3 rounded-full cursor-pointer hover:bg-night/5 dark:hover:bg-cream/10 transition-colors font-medium'
+            className='px-8 py-3 cursor-pointer'
           >
             Generate Another
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={handleDownload}
-            className='bg-night dark:bg-gold text-cream dark:text-night px-10 py-3 rounded-full cursor-pointer font-medium hover:opacity-90 transition-opacity'
+            className='px-10 py-3 cursor-pointer hover:opacity-90 transition-opacity'
           >
             Download
-          </button>
+          </Button>
         </div>
       )}
     </motion.form>

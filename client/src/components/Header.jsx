@@ -225,7 +225,7 @@ const Header = () => {
                     transition={{ delay: 1.6 }}
                     className="mt-6 text-sm text-gray-400 dark:text-zinc-600 font-medium tracking-wide uppercase"
                 >
-                    Generated images from PhotoGen
+                    Generated images from Sorcer
                 </motion.p>
             </motion.div>
         </div>

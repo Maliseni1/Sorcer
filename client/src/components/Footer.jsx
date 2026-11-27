@@ -106,7 +106,7 @@ const Footer = () => {
                     <div className="lg:col-span-2">
                         <div className="relative inline-block mb-4">
                             <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 dark:from-orange-500/20 dark:to-red-500/20 rounded-xl blur-lg" />
-                            <img src={assets.logo} alt="PhotoGen" className="relative h-14 w-auto" />
+                            <img src={assets.logo} alt="Sorcer" className="relative h-14 w-auto" />
                         </div>
                         <p className="text-gray-500 dark:text-zinc-400 text-sm leading-relaxed max-w-xs mb-6">
                             Transform your ideas into stunning AI-generated images in seconds. The creative playground for modern visionaries.

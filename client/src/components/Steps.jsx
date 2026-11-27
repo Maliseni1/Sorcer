@@ -10,43 +10,69 @@ const stepIcons = [
     <path key="download" d="M12 3v12M7 11l5 5 5-5M5 21h14" />,
 ]
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    }
+}
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+        opacity: 1, y: 0,
+        transition: { type: 'spring', stiffness: 260, damping: 24 }
+    }
+}
+
 const Steps = () => {
     return (
-        <motion.div
-            initial={{ opacity: 0.2, y: 100 }}
-            transition={{ duration: 1 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className='flex flex-col items-center justify-center my-32 px-4'
-        >
+        <div className='flex flex-col items-center justify-center my-32 px-4'>
             <h1 className={`text-3xl sm:text-4xl font-semibold mb-2 ${theme.text.heading}`}>How it works</h1>
-            <p className={`text-lg ${theme.text.muted} mb-8`}>Three steps. Zero friction.</p>
+            <p className={`text-lg ${theme.text.muted} mb-16`}>Three steps. Zero friction.</p>
 
-            <div className='space-y-4 w-full max-w-3xl text-sm'>
-                {stepsData.map((item, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ type: 'spring', stiffness: 200, delay: index * 0.15 }}
-                        className={`flex items-center gap-4 p-5 px-8 ${theme.surface.card} cursor-pointer hover:scale-[1.02] transition-all duration-300 rounded-xl`}
-                    >
-                        <IconBadge
-                            icon={
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    {stepIcons[index]}
-                                </svg>
-                            }
-                        />
-                        <div>
-                            <h2 className={`text-xl font-medium ${theme.text.heading}`}>{item.title}</h2>
-                            <p className={`${theme.text.muted} mt-1 leading-relaxed`}>{item.description}</p>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
-        </motion.div>
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className='relative w-full max-w-5xl'
+            >
+                {/* Connecting line between the three steps, desktop only */}
+                <div className={`hidden md:block absolute top-8 left-[16.5%] right-[16.5%] h-px ${theme.accent.iconBg}`} />
+
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6'>
+                    {stepsData.map((item, index) => (
+                        <motion.div
+                            key={index}
+                            variants={itemVariants}
+                            className='relative flex flex-col items-center text-center'
+                        >
+                            <div className='flex items-center gap-2 mb-4'>
+                                <span className='w-5 h-0.5 bg-gold inline-block' />
+                                <span className={`text-xs font-semibold tracking-[0.18em] uppercase ${theme.accent.text}`}>
+                                    Step 0{index + 1}
+                                </span>
+                            </div>
+
+                            <IconBadge
+                                size="lg"
+                                className="relative z-10 mb-5"
+                                icon={
+                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        {stepIcons[index]}
+                                    </svg>
+                                }
+                            />
+
+                            <h2 className={`text-xl font-medium mb-2 ${theme.text.heading}`}>{item.title}</h2>
+                            <p className={`${theme.text.muted} leading-relaxed max-w-[260px]`}>{item.description}</p>
+                        </motion.div>
+                    ))}
+                </div>
+            </motion.div>
+        </div>
     )
 }
 

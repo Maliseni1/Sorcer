@@ -84,7 +84,6 @@ const Header = () => {
                             </svg>
                         </button>
                     </form>
-                    <p className={`text-xs ${theme.text.faint} mt-3.5`}>Free to try · no signup needed</p>
                 </motion.div>
 
                 {/* Hero image */}

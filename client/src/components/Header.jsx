@@ -45,8 +45,7 @@ const Header = () => {
             >
                 {/* Copy + prompt mock */}
                 <motion.div variants={itemVariants} className="flex-1 max-w-xl text-center lg:text-left">
-                    <div className="flex items-center justify-center lg:justify-start gap-2.5 mb-5">
-                        <span className="w-7 h-0.5 bg-gold inline-block" />
+                    <div className="flex items-center justify-center lg:justify-start mb-5">
                         <span className={`text-xs font-semibold tracking-[0.18em] uppercase ${theme.accent.text}`}>
                             AI Image Generation
                         </span>

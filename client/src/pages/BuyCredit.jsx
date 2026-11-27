@@ -10,7 +10,7 @@ import { Button, Card, IconBadge } from '../components/ui'
 import { theme } from '../styles/theme'
 
 const BuyCredit = () => {
-  const { user, backendUrl, token, loadCreditData } = useContext(AppContext)
+  const { user, backendUrl, token, loadCreditData, setShowLogin } = useContext(AppContext)
 
   const handlePaymentSuccess = async (plan) => {
     try {
@@ -79,7 +79,10 @@ const BuyCredit = () => {
                 Purchase
               </Button>
             ) : (
-              <Button className='w-full mt-8 text-sm py-3 hover:opacity-90 transition-opacity'>
+              <Button
+                onClick={() => setShowLogin(true)}
+                className='w-full mt-8 text-sm py-3 hover:opacity-90 transition-opacity'
+              >
                 Get Started
               </Button>
             )}

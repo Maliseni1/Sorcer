@@ -78,11 +78,9 @@ const App = () => {
                     </ProtectedRoute>
                 } />
                 
-                <Route path='/buycredit' element={
-                    <ProtectedRoute>
-                        <BuyCredit />
-                    </ProtectedRoute>
-                } />
+                {/* Public so anonymous visitors can see pricing; BuyCredit itself
+                    gates the actual purchase action behind login. */}
+                <Route path='/buycredit' element={<BuyCredit />} />
 
                 <Route path='/privacy-policy' element={<PrivacyPolicy />} />
                 <Route path='/terms' element={<Terms />} />

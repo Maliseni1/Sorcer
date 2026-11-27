@@ -49,8 +49,7 @@ const Steps = () => {
                             variants={itemVariants}
                             className='relative flex flex-col items-center text-center'
                         >
-                            <div className='flex items-center gap-2 mb-4'>
-                                <span className='w-5 h-0.5 bg-gold inline-block' />
+                            <div className='flex items-center mb-4'>
                                 <span className={`text-xs font-semibold tracking-[0.18em] uppercase ${theme.accent.text}`}>
                                     Step 0{index + 1}
                                 </span>

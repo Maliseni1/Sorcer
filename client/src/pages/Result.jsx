@@ -51,9 +51,9 @@ const Result = () => {
       <div>
         <div className='relative'>
           <img src={image} alt='Generated' className='max-w-sm rounded-2xl shadow-lg dark:shadow-zinc-900/50' />
-          <span className={`absolute bottom-0 left-0 h-1 bg-blue-500 dark:bg-orange-500 ${loading ? 'w-full transition-all duration-[10s]' : 'w-0'}`} />
+          <span className={`absolute bottom-0 left-0 h-1 bg-gold ${loading ? 'w-full transition-all duration-[10s]' : 'w-0'}`} />
         </div>
-        <p className={`mt-3 text-center text-sm text-gray-500 dark:text-zinc-400 ${!loading ? 'hidden' : ''}`}>
+        <p className={`mt-3 text-center text-sm text-night/50 dark:text-cream/50 ${!loading ? 'hidden' : ''}`}>
           Loading....
         </p>
       </div>
@@ -69,7 +69,7 @@ const Result = () => {
           />
           <button
             type='submit'
-            className='bg-zinc-900 dark:bg-orange-500 dark:text-zinc-900 text-white font-medium px-10 sm:px-16 py-3 rounded-full'
+            className='bg-night dark:bg-gold text-cream dark:text-night font-medium px-10 sm:px-16 py-3 rounded-full'
           >
             Generate
           </button>
@@ -80,13 +80,13 @@ const Result = () => {
         <div className='flex gap-3 flex-wrap justify-center text-sm p-0.5 mt-10'>
           <button
             onClick={() => { setIsImageLoaded(false); setInput('') }}
-            className='bg-transparent border-2 border-zinc-900 dark:border-zinc-500 text-black dark:text-white px-8 py-3 rounded-full cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors font-medium'
+            className='bg-transparent border-2 border-night/30 dark:border-cream/30 text-night dark:text-cream px-8 py-3 rounded-full cursor-pointer hover:bg-night/5 dark:hover:bg-cream/10 transition-colors font-medium'
           >
             Generate Another
           </button>
           <button
             onClick={handleDownload}
-            className='bg-zinc-900 dark:bg-orange-500 dark:text-zinc-900 text-white px-10 py-3 rounded-full cursor-pointer font-medium hover:opacity-90 transition-opacity'
+            className='bg-night dark:bg-gold text-cream dark:text-night px-10 py-3 rounded-full cursor-pointer font-medium hover:opacity-90 transition-opacity'
           >
             Download
           </button>

@@ -18,4 +18,8 @@ app.use('/api/image', imageRouter)
 
 app.get('/', (req, res) => res.send('API Working'));
 
+// Public, non-secret runtime config for the frontend — keeps the Google
+// client ID out of the static client build.
+app.get('/api/config', (req, res) => res.json({ googleClientId: process.env.GOOGLE_CLIENT_ID }));
+
 app.listen(PORT, ()=> console.log('Server running on port ' + PORT));

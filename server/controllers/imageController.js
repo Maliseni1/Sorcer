@@ -1,6 +1,5 @@
 import axios from "axios"
 import userModel from "../models/userModel.js"
-import FormData from "form-data"
 import { isValidObjectId } from "mongoose"
 
 export const generateImage = async (req, res) =>{
@@ -22,18 +21,18 @@ export const generateImage = async (req, res) =>{
             return res.json({success: false, message: 'No Credit Balance', creditBalance: user.creditBalance})
         }
 
-        const formData = new FormData()
-        formData.append('prompt', prompt)
+        const { data } = await axios.post(
+            `https://api.cloudflare.com/client/v4/accounts/${process.env.CLOUDFLARE_ACCOUNT_ID}/ai/run/@cf/black-forest-labs/flux-1-schnell`,
+            { prompt },
+            { headers: { 'Authorization': `Bearer ${process.env.CLOUDFLARE_API_TOKEN}` } }
+        )
 
-        const {data} = await axios.post('https://clipdrop-api.co/text-to-image/v1', formData, {
-            headers: {
-                'x-api-key': process.env.CLIPDROP_API,
-            },
-            responseType: 'arraybuffer'
-        })
-        
-        const base64Image = Buffer.from(data, 'binary').toString('base64')
-        const resultImage = `data:image/png;base64,${base64Image}`
+        if (!data.success) {
+            const message = data.errors?.[0]?.message || 'Image generation failed'
+            return res.json({ success: false, message })
+        }
+
+        const resultImage = `data:image/jpeg;base64,${data.result.image}`
 
         await userModel.findByIdAndUpdate(user._id, {creditBalance:user.creditBalance - 1})
 

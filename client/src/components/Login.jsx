@@ -16,13 +16,27 @@ const Login = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [shake, setShake] = useState(false)
 
+    // Which method this browser last signed in with, so returning users can
+    // be reminded which one they used — read once when the modal opens.
+    const [lastAuthMethod] = useState(() => localStorage.getItem('lastAuthMethod'))
+
+    const passwordsMismatch = state !== 'Login' && confirmPassword.length > 0 && password !== confirmPassword
+
     const onSubmitHandler = async (e) => {
         e.preventDefault()
         if (isLoading) return
+
+        if (state !== 'Login' && password !== confirmPassword) {
+            toast.error('Passwords do not match')
+            setShake(true)
+            return
+        }
+
         setIsLoading(true)
 
         try {
@@ -39,6 +53,7 @@ const Login = () => {
                 setToken(data.token)
                 setUser(data.user)
                 localStorage.setItem('token', data.token)
+                localStorage.setItem('lastAuthMethod', 'email')
                 toast.success(state === 'Login' ? 'Welcome back!' : 'Account created!', {
                     className: isDarkMode ? 'dark-toast' : ''
                 })
@@ -132,8 +147,13 @@ const Login = () => {
                     {/* Google Sign In */}
                     <motion.div
                         variants={itemVariants}
-                        className="w-full"
+                        className="relative w-full"
                     >
+                        {lastAuthMethod === 'google' && (
+                            <span className={`absolute -top-2.5 right-3 z-10 text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-full ${theme.accent.iconBg} ${theme.accent.text}`}>
+                                Last used
+                            </span>
+                        )}
                         <GoogleLogin
                             onSuccess={async (credentialResponse) => {
                                 try {
@@ -146,6 +166,7 @@ const Login = () => {
                                         setToken(data.token);
                                         setUser(data.user);
                                         localStorage.setItem('token', data.token);
+                                        localStorage.setItem('lastAuthMethod', 'google');
                                         setShowLogin(false);
                                         toast.success('Welcome! 🎉');
                                     } else {
@@ -243,6 +264,34 @@ const Login = () => {
                             />
                         </motion.div>
 
+                        <AnimatePresence mode="wait">
+                            {state !== 'Login' && (
+                                <motion.div
+                                    key="confirm-password-field"
+                                    initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                                    animate={{ height: 'auto', opacity: 1, marginTop: 16 }}
+                                    exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                                    className="overflow-hidden"
+                                >
+                                    <TextField
+                                        icon={<img src={assets.lock_icon} alt="" className="h-full w-full dark:invert" />}
+                                        onChange={e => setConfirmPassword(e.target.value)}
+                                        value={confirmPassword}
+                                        type={showPassword ? 'text' : 'password'}
+                                        placeholder="Confirm Password"
+                                        invalid={passwordsMismatch}
+                                        required
+                                    />
+                                    {passwordsMismatch && (
+                                        <p className="text-xs text-red-500 dark:text-red-400 mt-1.5">
+                                            Passwords do not match
+                                        </p>
+                                    )}
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
                         {state === 'Login' && (
                             <motion.div variants={itemVariants} className="flex justify-end mt-2">
                                 <span className={`text-xs ${theme.accent.text} hover:underline cursor-pointer`}>
@@ -263,9 +312,9 @@ const Login = () => {
                         <motion.div variants={itemVariants} className="mt-5">
                             <Button
                                 as={motion.button}
-                                disabled={isLoading}
-                                whileHover={!isLoading ? { scale: 1.02 } : {}}
-                                whileTap={!isLoading ? { scale: 0.98 } : {}}
+                                disabled={isLoading || passwordsMismatch}
+                                whileHover={!isLoading && !passwordsMismatch ? { scale: 1.02 } : {}}
+                                whileTap={!isLoading && !passwordsMismatch ? { scale: 0.98 } : {}}
                                 className="w-full py-2.5 shadow-lg shadow-night/20 dark:shadow-gold/25"
                             >
                                 {isLoading ? (
@@ -299,6 +348,7 @@ const Login = () => {
                                     setName('')
                                     setEmail('')
                                     setPassword('')
+                                    setConfirmPassword('')
                                     setShake(false)
                                 }}
                                 whileHover={{ scale: 1.05 }}

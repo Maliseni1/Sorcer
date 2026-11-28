@@ -1,40 +1,77 @@
 import React from 'react'
 import { stepsData } from '../assets/assets'
 import { motion } from 'motion/react'
+import { IconBadge } from './ui'
+import { theme } from '../styles/theme'
+
+const stepIcons = [
+    <path key="describe" d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z" />,
+    <path key="magic" d="M12 3v4M12 17v4M5 10h4M15 10h4M7 7l2 2M15 15l2 2M17 7l-2 2M9 15l-2 2" />,
+    <path key="download" d="M12 3v12M7 11l5 5 5-5M5 21h14" />,
+]
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    }
+}
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+        opacity: 1, y: 0,
+        transition: { type: 'spring', stiffness: 260, damping: 24 }
+    }
+}
 
 const Steps = () => {
     return (
-        <motion.div
-            initial={{ opacity: 0.2, y: 100 }}
-            transition={{ duration: 1 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className='flex flex-col items-center justify-center my-32 px-4'
-        >
-            <h1 className='text-3xl sm:text-4xl font-semibold mb-2 text-gray-900 dark:text-zinc-100'>How it works</h1>
-            <p className='text-lg text-gray-500 dark:text-zinc-400 mb-8'>Transform Words Into Stunning Images</p>
+        <div className='flex flex-col items-center justify-center my-32 px-4'>
+            <h1 className={`text-3xl sm:text-4xl font-semibold mb-2 ${theme.text.heading}`}>How it works</h1>
+            <p className={`text-lg ${theme.text.muted} mb-16`}>Three steps. Zero friction.</p>
 
-            <div className='space-y-4 w-full max-w-3xl text-sm'>
-                {stepsData.map((item, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ type: 'spring', stiffness: 200, delay: index * 0.15 }}
-                        className='flex items-center gap-4 p-5 px-8 bg-white dark:bg-zinc-800/80 shadow-md dark:shadow-zinc-900/50 border border-gray-200 dark:border-zinc-700 cursor-pointer hover:scale-[1.02] hover:shadow-lg dark:hover:shadow-zinc-900/80 transition-all duration-300 rounded-xl'
-                    >
-                        <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-orange-500/20 flex items-center justify-center shrink-0">
-                            <img width={28} src={item.icon} alt='' className="dark:invert" />
-                        </div>
-                        <div>
-                            <h2 className='text-xl font-medium text-gray-900 dark:text-zinc-100'>{item.title}</h2>
-                            <p className='text-gray-500 dark:text-zinc-400 mt-1 leading-relaxed'>{item.description}</p>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
-        </motion.div>
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className='relative w-full max-w-5xl'
+            >
+                {/* Connecting line between the three steps, desktop only */}
+                <div className={`hidden md:block absolute top-8 left-[16.5%] right-[16.5%] h-px ${theme.accent.iconBg}`} />
+
+                <div className='grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6'>
+                    {stepsData.map((item, index) => (
+                        <motion.div
+                            key={index}
+                            variants={itemVariants}
+                            className='relative flex flex-col items-center text-center'
+                        >
+                            <div className='flex items-center mb-4'>
+                                <span className={`text-xs font-semibold tracking-[0.18em] uppercase ${theme.accent.text}`}>
+                                    Step 0{index + 1}
+                                </span>
+                            </div>
+
+                            <IconBadge
+                                size="lg"
+                                className="relative z-10 mb-5"
+                                icon={
+                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        {stepIcons[index]}
+                                    </svg>
+                                }
+                            />
+
+                            <h2 className={`text-xl font-medium mb-2 ${theme.text.heading}`}>{item.title}</h2>
+                            <p className={`${theme.text.muted} leading-relaxed max-w-[260px]`}>{item.description}</p>
+                        </motion.div>
+                    ))}
+                </div>
+            </motion.div>
+        </div>
     )
 }
 

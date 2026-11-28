@@ -1,14 +1,16 @@
 import React, { useContext } from 'react'
 import { track } from '@vercel/analytics'
-import { assets, plans } from '../assets/assets'
+import { plans } from '../assets/assets'
 import { AppContext } from '../context/AppContext'
 import { motion } from 'motion/react'
 import { Buy } from '@coinbase/onchainkit/buy'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { Button, Card, IconBadge } from '../components/ui'
+import { theme } from '../styles/theme'
 
 const BuyCredit = () => {
-  const { user, backendUrl, token, loadCreditData } = useContext(AppContext)
+  const { user, backendUrl, token, loadCreditData, setShowLogin } = useContext(AppContext)
 
   const handlePaymentSuccess = async (plan) => {
     try {
@@ -37,45 +39,54 @@ const BuyCredit = () => {
       viewport={{ once: true }}
       className='min-h-[80vh] text-center pt-14 mb-10 px-4'
     >
-      <button className='border border-gray-400 dark:border-zinc-600 text-gray-700 dark:text-zinc-300 px-10 py-2 rounded-full mb-6 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors'>
+      <Button variant="outline" className='px-10 py-2 mb-6'>
         Our Plans
-      </button>
-      <h1 className='text-center text-3xl font-medium mb-6 sm:mb-10 text-gray-900 dark:text-zinc-100'>
+      </Button>
+      <h1 className={`text-center text-3xl font-medium mb-6 sm:mb-10 ${theme.text.heading}`}>
         Choose the plan
       </h1>
 
       <div className='flex flex-wrap justify-center gap-6 text-left'>
         {plans.map((item, index) => (
-          <div
+          <Card
             key={index}
-            className='bg-white dark:bg-zinc-800/80 shadow-sm dark:shadow-zinc-900/50 border border-gray-200 dark:border-zinc-700 rounded-2xl py-12 px-8 text-gray-600 dark:text-zinc-300 hover:scale-105 transition-all duration-500 w-72'
+            className={`shadow-sm rounded-2xl py-12 px-8 ${theme.text.body} hover:scale-105 transition-all duration-500 w-72`}
           >
-            <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-orange-500/20 flex items-center justify-center mb-4">
-              <img width={28} src={assets.logo_icon} alt='' className="dark:invert" />
-            </div>
-            <p className='font-semibold text-lg text-gray-900 dark:text-zinc-100'>{item.id}</p>
+            <IconBadge
+              className="mb-4"
+              icon={
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2l1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8z" />
+                </svg>
+              }
+            />
+            <p className={`font-semibold text-lg ${theme.text.heading}`}>{item.id}</p>
             <p className='text-sm mt-1'>{item.desc}</p>
-            <p className='mt-6 text-gray-900 dark:text-zinc-100'>
+            <p className={`mt-6 ${theme.text.heading}`}>
               <span className='text-3xl font-bold'>${item.price}</span>
-              <span className='text-gray-500 dark:text-zinc-400 text-sm'> / {item.credits} credits</span>
+              <span className={`${theme.text.muted} text-sm`}> / {item.credits} credits</span>
             </p>
 
             {user ? (
-              <Buy
+              <Button
+                as={Buy}
                 productId={item.id}
                 amount={item.price}
                 recipient="0x59c773bFdeFb999084725937A12B27684A782676"
                 onSuccess={() => handlePaymentSuccess(item)}
-                className='w-full bg-gray-800 dark:bg-orange-500 text-white dark:text-zinc-900 mt-8 text-sm rounded-lg py-3 min-w-0 font-medium hover:opacity-90 transition-opacity'
+                className='w-full mt-8 text-sm py-3 min-w-0 hover:opacity-90 transition-opacity'
               >
                 Purchase
-              </Buy>
+              </Button>
             ) : (
-              <button className='w-full bg-gray-800 dark:bg-orange-500 text-white dark:text-zinc-900 mt-8 text-sm rounded-lg py-3 font-medium hover:opacity-90 transition-opacity'>
+              <Button
+                onClick={() => setShowLogin(true)}
+                className='w-full mt-8 text-sm py-3 hover:opacity-90 transition-opacity'
+              >
                 Get Started
-              </button>
+              </Button>
             )}
-          </div>
+          </Card>
         ))}
       </div>
     </motion.div>

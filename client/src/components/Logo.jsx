@@ -1,4 +1,5 @@
 import React from 'react'
+import { theme } from '../styles/theme'
 
 const Logo = ({ className = '', iconClassName = '', textClassName = '' }) => (
     <div className={`flex items-center gap-2.5 ${className}`}>
@@ -19,7 +20,7 @@ const Logo = ({ className = '', iconClassName = '', textClassName = '' }) => (
                 <rect x="34.5" y="73" width="51" height="8" fill="#F2B33D" />
             </g>
         </svg>
-        <span className={`text-xl sm:text-2xl font-bold tracking-tight leading-none text-gray-900 dark:text-zinc-50 ${textClassName}`}>
+        <span className={`text-xl sm:text-2xl font-bold tracking-tight leading-none ${theme.text.heading} ${textClassName}`}>
             Sorcer
         </span>
     </div>

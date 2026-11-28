@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { AnimatePresence } from 'motion/react'
@@ -7,10 +7,13 @@ import { Analytics } from '@vercel/analytics/react'
 import Home from './pages/Home'
 import Result from './pages/Result'
 import BuyCredit from './pages/BuyCredit'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import Terms from './pages/Terms'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import OfflinePage from './components/OfflinePage'
 import BackendStatusBanner from './components/BackendStatusBanner'
+import SplashScreen from './components/SplashScreen'
 import Login from './components/Login'
 import { AppContext } from './context/AppContext'
 import useNetworkStatus from './hooks/useNetworkStatus'
@@ -36,6 +39,12 @@ const ProtectedRoute = ({ children }) => {
 const App = () => {
     const { showLogin, isDarkMode } = useContext(AppContext)
     const { isOnline, checkConnection } = useNetworkStatus()
+    const [showSplash, setShowSplash] = useState(true)
+
+    useEffect(() => {
+        const timer = setTimeout(() => setShowSplash(false), 1300)
+        return () => clearTimeout(timer)
+    }, [])
 
     // Only block the whole app when the browser itself has no network connection.
     // Backend outages are surfaced separately via BackendStatusBanner, non-blocking.
@@ -48,6 +57,10 @@ const App = () => {
             className={`px-4 sm:px-10 md:px-14 lg:px-28 min-h-screen ${isDarkMode ? 'dark' : ''}`}
             style={{ background: 'var(--bg-primary)' }}
         >
+            <AnimatePresence>
+                {showSplash && <SplashScreen key="splash" />}
+            </AnimatePresence>
+
             <ToastContainer position='bottom-right' />
             <BackendStatusBanner />
             <Navbar />
@@ -65,11 +78,12 @@ const App = () => {
                     </ProtectedRoute>
                 } />
                 
-                <Route path='/buycredit' element={
-                    <ProtectedRoute>
-                        <BuyCredit />
-                    </ProtectedRoute>
-                } />
+                {/* Public so anonymous visitors can see pricing; BuyCredit itself
+                    gates the actual purchase action behind login. */}
+                <Route path='/buycredit' element={<BuyCredit />} />
+
+                <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+                <Route path='/terms' element={<Terms />} />
             </Routes>
 
             <Footer />

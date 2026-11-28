@@ -213,11 +213,12 @@ const Login = () => {
                                     className="overflow-hidden"
                                 >
                                     <TextField
+                                        id="signup-name"
                                         icon={<img src={assets.profile_icon} alt="" className="h-full w-full dark:invert" />}
                                         onChange={e => setName(e.target.value)}
                                         value={name}
                                         type="text"
-                                        placeholder="Full Name"
+                                        label="Full Name"
                                         required
                                     />
                                 </motion.div>
@@ -226,22 +227,24 @@ const Login = () => {
 
                         <motion.div variants={itemVariants}>
                             <TextField
+                                id="login-email"
                                 icon={<img src={assets.email_icon} alt="" className="h-full w-full dark:invert" />}
                                 onChange={e => setEmail(e.target.value)}
                                 value={email}
                                 type="email"
-                                placeholder="Email address"
+                                label="Email address"
                                 required
                             />
                         </motion.div>
 
                         <motion.div variants={itemVariants} className="mt-4">
                             <TextField
+                                id="login-password"
                                 icon={<img src={assets.lock_icon} alt="" className="h-full w-full dark:invert" />}
                                 onChange={e => setPassword(e.target.value)}
                                 value={password}
                                 type={showPassword ? 'text' : 'password'}
-                                placeholder="Password"
+                                label="Password"
                                 required
                                 rightElement={
                                     <button
@@ -275,11 +278,12 @@ const Login = () => {
                                     className="overflow-hidden"
                                 >
                                     <TextField
+                                        id="signup-confirm-password"
                                         icon={<img src={assets.lock_icon} alt="" className="h-full w-full dark:invert" />}
                                         onChange={e => setConfirmPassword(e.target.value)}
                                         value={confirmPassword}
                                         type={showPassword ? 'text' : 'password'}
-                                        placeholder="Confirm Password"
+                                        label="Confirm Password"
                                         invalid={passwordsMismatch}
                                         required
                                     />
